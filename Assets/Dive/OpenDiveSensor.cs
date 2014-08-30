@@ -22,14 +22,13 @@ public class OpenDiveSensor : MonoBehaviour {
 	public Texture nogyrotexture;
 	private float q0,q1,q2,q3;
 	Quaternion rot;
-	private bool show_error_message;
+//	private bool show_error_message;
 
 	string errormessage;
 
 //#if UNITY_EDITOR
 
-//*  #elif UNITY_ANDROID
-	/*
+  /*#elif UNITY_ANDROID
 
 	[DllImport("divesensor")]	private static extern void initialize_sensors();
 	[DllImport("divesensor")]	private static extern int get_q(ref float q0,ref float q1,ref float q2,ref float q3);
@@ -42,7 +41,7 @@ public class OpenDiveSensor : MonoBehaviour {
 
 
    
-   elif UNITY_IPHONE */
+   #elif UNITY_IPHONE*/
 	[DllImport("__Internal")]	private static extern void initialize_sensors();
 	[DllImport("__Internal")]	private static extern float get_q0();
 	[DllImport("__Internal")]	private static extern float get_q1();
@@ -52,11 +51,11 @@ public class OpenDiveSensor : MonoBehaviour {
     [DllImport("__Internal")]	private static extern int get_q(ref float q0,ref float q1,ref float q2,ref float q3);
 	
 	
-//endif 	
+//#endif 	
 
 	void Start () {
 
-		show_error_message=true;
+//		show_error_message=true;
 
 		rot=Quaternion.identity;
 	    // Disable screen dimming
@@ -68,8 +67,8 @@ public class OpenDiveSensor : MonoBehaviour {
 
 
 
-//#if UNITY_EDITOR
-/*  #elif UNITY_ANDROID
+/*#if UNITY_EDITOR
+  #elif UNITY_ANDROID
 		Network.logLevel = NetworkLogLevel.Full;
 		use_udp(1);
 		initialize_sensors ();
@@ -84,7 +83,7 @@ public class OpenDiveSensor : MonoBehaviour {
 		}
 */
 
-	//#elif UNITY_IPHONE
+//	#elif UNITY_IPHONE
 		initialize_sensors();
 //#endif
 		
@@ -94,14 +93,14 @@ public class OpenDiveSensor : MonoBehaviour {
 	void Update () {
 
 		
-//#if UNITY_EDITOR
+/*#if UNITY_EDITOR
 
-/*	#elif UNITY_ANDROID
+	#elif UNITY_ANDROID
 
 		process();
 		get_q(ref q0,ref q1,ref q2,ref q3);
-		rot.x=-q2;rot.y=q3;rot.z=-q1;rot.w=q0;
-		#elif UNITY_IPHONE*/
+		rot.x=-q2;rot.y=q3;rot.z=-q1;rot.w=q0;*/
+		//#elif UNITY_IPHONE
 		DiveUpdateGyroData();
 		get_q(ref q0,ref q1,ref q2,ref q3);
 		rot.x=-q2;
@@ -124,18 +123,18 @@ public class OpenDiveSensor : MonoBehaviour {
 
 	}
 	
-	void OnGUI ()
+	/*void OnGUI ()
 	{
 		//GUI.Label(new Rect(100,100,400,100),errormessage);
 		if (show_error_message)
 		{
-			if(GUI.Button(new Rect(0,0, Screen.width, Screen.height) , "button")) {
+			/*if(GUI.Button(new Rect(0,0, Screen.width, Screen.height) , "button")) {
 				show_error_message=false;
-			}
-			GUI.DrawTexture(new Rect(Screen.width/2-320, Screen.height/2-240, 640, 480), nogyrotexture, ScaleMode.ScaleToFit, true, 0);
+			}*/
+			//GUI.DrawTexture(new Rect(Screen.width/2-320, Screen.height/2-240, 640, 480), nogyrotexture, ScaleMode.ScaleToFit, true, 0);
 
 
-		}
+		//}
 
-	}
+	//}*/
 }
