@@ -2,7 +2,7 @@
 var guiObject : GUITexture;
 
 var fadeTime = 1.0;
-var nextscene= "demoscene";
+var nextscene= 1;
 
 enum Fade {In, Out}
 

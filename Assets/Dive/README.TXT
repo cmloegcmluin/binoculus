@@ -1,5 +1,5 @@
 
-"Durovis Dive Tracking Technology Plugin for Android/IOS by www.durovis.com
+"Durovis Dive Tracking Technology Plugin for Android/IOS  www.shoogee.com
 
 The Software consists of a .so file and a Unity Script that will rotate a GameObject according to the Head Tracking.
 
@@ -7,7 +7,7 @@ The Software consists of a .so file and a Unity Script that will rotate a GameOb
  1. This software may be used free of charge for Non-Commercial and Commercial  purposes.
  
  2. The Product must show the supplied Splashscreen. 
-  
+   
  	
 27/9/2013
 Shoogee GmbH & Co. KG

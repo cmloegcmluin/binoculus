@@ -5,6 +5,7 @@ public class ZoomIn_Test : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		camera.fieldOfView = 10.0f;
 	}
 
 	//int zoom = 20;
@@ -16,10 +17,16 @@ public class ZoomIn_Test : MonoBehaviour {
 	float side_to_side = 0.0f;
 	float up_and_down = 0.0f;
 
+	//float red = 0.0f;
+	//float green = 0.0f;
+	//float blue = 0.0f;
+
 	RaycastHit hit = new RaycastHit();
 	Ray ray = new Ray();
+	//float ray_distance = 0.0f;
 
 	string looking_at;
+
 
 	//new RaycastHit() hit
 	//new Ray() ray
@@ -32,11 +39,13 @@ public class ZoomIn_Test : MonoBehaviour {
 				isZoomed = !isZoomed; 
 			}*/
 			
-		if(Input.GetKey(KeyCode.X)){
+		if(Input.GetKey(KeyCode.X) && camera.fieldOfView < 60){
 			camera.fieldOfView = camera.fieldOfView + 1.0f;
+			print (camera.fieldOfView);
 		}
-		if(Input.GetKey(KeyCode.C)){
+		if(Input.GetKey(KeyCode.C) && camera.fieldOfView > 5){
 			camera.fieldOfView = camera.fieldOfView - 1.0f;
+			print (camera.fieldOfView);
 		}
 
 		//float moveUP = Input.GetKey("Mouse Y") * 100 * Time.deltaTime;
@@ -46,11 +55,11 @@ public class ZoomIn_Test : MonoBehaviour {
 		up_and_down = 0.0f;
 
 		if(Input.GetKey(KeyCode.A)){
-			side_to_side = side_to_side + .5f;
+			side_to_side = side_to_side - .5f;
 		}
 
 		if(Input.GetKey(KeyCode.D)){
-			side_to_side = side_to_side - .5f;
+			side_to_side = side_to_side + .5f;
 		}
 
 		if(Input.GetKey(KeyCode.W)){
@@ -87,15 +96,39 @@ public class ZoomIn_Test : MonoBehaviour {
 		if (Physics.Raycast(ray, out hit)) {
 			if (hit.transform.name != looking_at){
 				looking_at = hit.transform.name;
-				print ("I'm looking at " + looking_at);
+				//red = Random.Range(0.0f,1.0f);
+				//green = Random.Range(0.0f,1.0f);
+				//blue = Random.Range(0.0f,1.0f);
+				//hit.transform.renderer.material.color = Color(red,green,blue);
+				hit.transform.renderer.material.color = new Color(Random.Range(0.0f,1.0f),Random.Range(0.0f,1.0f),Random.Range(0.0f,1.0f));
+				//print ("I'm looking at " + looking_at);
+				//print (hit.distance);
 			}
 		}
 		else {
 			if (looking_at != "nothing"){
 				looking_at = "nothing";
-				print ("I'm looking at " + looking_at);
+				//print ("I'm looking at " + looking_at);
+				//print (hit.distance);
 			}
 		}
+
+		//print (hit.distance);
+		//print (camera.fieldOfView);
+
+
+		if (looking_at != "nothing" && hit.distance < 34.5 - camera.fieldOfView && camera.fieldOfView < 60) {
+			camera.fieldOfView = camera.fieldOfView + Mathf.Abs (hit.distance - camera.fieldOfView) / 50;
+			//print ("out out out");
+		} 
+		else if (looking_at != "nothing" && hit.distance > 35.5 - camera.fieldOfView && camera.fieldOfView > 5) {
+			camera.fieldOfView = camera.fieldOfView - Mathf.Abs (camera.fieldOfView - hit.distance) / 50;
+			//print ("in in in");
+		} 
+		else if (camera.fieldOfView < 80) {
+			camera.fieldOfView = camera.fieldOfView + 0.0001f + Mathf.Abs (hit.distance - camera.fieldOfView) / 50;
+		}
+
 
 
 	
